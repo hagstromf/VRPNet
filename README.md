@@ -14,13 +14,12 @@ The model manages to produce decent results on small problem sizes with 20 nodes
 
 To run the code, you need to make sure you have the following python libraries installed:
 
-\begin{itemize}
--- NumPy
--- Pytorch
--- Scipy
--- Scikit-learn
--- networkx
--- Matplotlib
--- Pickle
--- ortools
-\end{itemize}
+
+* NumPy
+* Pytorch
+* Scipy
+* Scikit-learn
+* networkx
+* Matplotlib
+* Pickle
+* ortools
