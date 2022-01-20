@@ -1,5 +1,6 @@
 import torch
 import matplotlib.pyplot as plt
+import time
 from utils.tour_utils import *
 
 
@@ -114,7 +115,7 @@ def evaluate_iteration(model, dataloader, beam_size, num_vehicles, device, filen
 
             avg_opt_gap = (1/batch_size) * torch.sum(longest_subtour_lens / target_lengths - 1)
             avg_opt_gaps[i] = avg_opt_gap
-            print(avg_opt_gap)
+            #print(avg_opt_gap)
         
         plt.figure()
         plt.title(title)
@@ -146,10 +147,16 @@ def evaluate_beam_size(model, dataloader, beam_sizes, num_vehicles, device, n_it
     with torch.no_grad():
         model.eval()
         avg_opt_gaps = torch.zeros(len(beam_sizes))
+        search_time = torch.zeros(len(beam_sizes))
         for i, beam_size in enumerate(beam_sizes):
+            start = time.time()
             avg_opt_gap, avg_pred_tour_len = average_beamsearch_optimality_gap(model, dataloader, beam_size, num_vehicles, device, n_iter=n_iter)
+            end = time.time()
             avg_opt_gaps[i] = avg_opt_gap
-            print(avg_opt_gap)
+            #print(avg_opt_gap)
+            search_time[i] = end-start
+            #print(end-start)
+            #print()
         
         plt.figure()
         plt.title(title)
@@ -159,4 +166,12 @@ def evaluate_beam_size(model, dataloader, beam_sizes, num_vehicles, device, n_it
         if save:
             plt.savefig("plots/" + filename + ".png")
         plt.show()
-        return avg_opt_gaps
+
+        plt.figure()
+        plt.plot(beam_sizes, search_time)
+        plt.xlabel("Beam size")
+        plt.ylabel("Time (s)")
+        if save:
+            plt.savefig("plots/" + filename + "_time.png")
+        plt.show()
+        return avg_opt_gaps, search_time
