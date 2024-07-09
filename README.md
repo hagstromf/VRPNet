@@ -1,6 +1,6 @@
 # VRPNet
 
-This is the codebase used for my bachelor's thesis "Finding Solutions to the Vehicle Routing Problem using a Graph Neural Network".
+This is the codebase used for my bachelor's thesis ["Finding Solutions to the Vehicle Routing Problem using a Graph Neural Network"](https://sal.aalto.fi/publications/pdf-files/theses/bac/thag22_public.pdf).
 
 ## Abstract
 
